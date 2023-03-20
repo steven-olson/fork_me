@@ -5,6 +5,9 @@ from werkzeug.wrappers.response import Response
 flask_app = Flask(__name__)
 
 
+DEFAULT_URL = "https://github.com/steven-olson/fork_me"
+
+
 @flask_app.route("/fork_me")
 def fork_this_project() -> Response:
     """
@@ -21,6 +24,10 @@ def _get_target_url() -> str:
     Build target url fork page of what we want to fork.
     :return:
     """
-    return os.environ.get("TARGET_URL")\
+    return f"{os.environ.get('TARGET_URL')}/fork"\
         if os.environ.get("TARGET_URL")\
-        else DEFAULT_URL
+        else f"{DEFAULT_URL}/fork"
+
+
+if __name__ == "__main__":
+    flask_app.run()
